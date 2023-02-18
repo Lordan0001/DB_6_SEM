@@ -5,6 +5,7 @@ drop table Goods;
 drop table Customers;
 drop table Orders;
 drop table Accounts;
+drop Table History;
 
 
 CREATE TABLE Categories(
@@ -44,5 +45,13 @@ CREATE TABLE  Orders(
     orderDate date not null,
     orderedCount int not null
 );
+
+CREATE TABLE History(
+    Id int PRIMARY key IDENTITY not null,
+	orderId int not null,
+	operation nvarchar(254) not null,
+	createAt DATETIME not null default GETDATE()
+)
+
 
 
