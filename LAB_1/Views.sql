@@ -4,7 +4,7 @@ select * from Customers;
 
 Create or alter VIEW FullOrderInfo AS
 select Customers.customerName, Customers.customerEmail, Customers.creditBalance,
-Orders.orderdProduct, Orders.orderDate, Orders.orderedCount
+Orders.orderedProduct, Orders.orderDate, Orders.orderedCount
 from Customers inner JOIN Orders on Customers.customerName = Orders.client;
 
 Select * from FullOrderInfo;
