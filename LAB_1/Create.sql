@@ -55,3 +55,5 @@ CREATE TABLE History(
 
 
 
+--change add single price column and
+--ALTER TABLE Orders ADD TotalPrice AS (orderedCount * SinglePrice) PERSISTED;
