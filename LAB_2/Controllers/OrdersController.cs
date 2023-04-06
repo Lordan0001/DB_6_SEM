@@ -46,7 +46,7 @@ namespace LAB_2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,orderedProduct,client,orderDate,orderedCount")] Orders orders)
+        public ActionResult Create([Bind(Include = "Id,orderedProduct,client,orderDate,orderedCount,singlePrice")] Orders orders)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace LAB_2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,orderedProduct,client,orderDate,orderedCount")] Orders orders)
+        public ActionResult Edit([Bind(Include = "Id,orderedProduct,client,orderDate,orderedCount,singlePrice")] Orders orders)
         {
             if (ModelState.IsValid)
             {

@@ -1,2 +1,25 @@
-﻿<h1>Welcome to the SixSemStore</h1>
+﻿
+<h1>Welcome to the SixSemStore</h1>
 <h2>Choose table up here</h2>
+
+
+@using (Html.BeginForm("ShowOrders","Home",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Orders</h4>
+        <label>Enter start and end date EXAMPLE: YYYY-MM-DD </label><br/>
+        <form >
+            <input type="text" name="startDate" id="temp1" /><br /><br />
+            <input type="text" name="endDate" id="temp2" /><br /><br />
+            <input type="submit" value="Show Orders" /><br />
+        </form>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

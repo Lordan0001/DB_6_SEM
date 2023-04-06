@@ -9,16 +9,25 @@ namespace LAB_2.Controllers
 {
     public class HomeController : Controller
     {
+        MainContext mainContext = new MainContext();
         MainContext MainContext;
         public ActionResult Index()
         {
-/*            List<Goods> goodsList = new List<Goods>();
-            using (MainContext = new MainContext())
-            {
-                //List<Goods> goodsList = new List<Goods>();
-                goodsList = MainContext.Goods.ToList();
-            }*/
-            return View(/*goodsList*/);
+
+
+            return View();
+        }
+
+        public ActionResult ShowOrders(string startDate, string endDate) {
+
+
+           // string startDate = "2019-01-01";
+           // string endDate = "2022-02-02";
+            System.Data.SqlClient.SqlParameter startDateParam = new System.Data.SqlClient.SqlParameter("@sqlStartDateParam", startDate);
+            System.Data.SqlClient.SqlParameter endDateParam = new System.Data.SqlClient.SqlParameter("@sqlEndDateParam", endDate);
+            List<Orders> orders = new List<Orders>();
+            orders = mainContext.Orders.SqlQuery("Select * from Orders Where orderDate between @sqlStartDateParam and @sqlEndDateParam ", startDateParam, endDateParam).ToList();
+            return View(orders);
         }
 
 

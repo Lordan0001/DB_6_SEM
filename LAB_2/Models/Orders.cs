@@ -22,5 +22,12 @@ namespace LAB_2.Models
         public DateTime orderDate { get; set; }
 
         public int orderedCount { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal singlePrice { get; set; }
+
+        [Column(TypeName = "money")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public decimal? TotalPrice { get; set; }
     }
 }
