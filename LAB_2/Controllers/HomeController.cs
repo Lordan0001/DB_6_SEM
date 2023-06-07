@@ -13,8 +13,6 @@ namespace LAB_2.Controllers
         MainContext MainContext;
         public ActionResult Index()
         {
-
-
             return View();
         }
 

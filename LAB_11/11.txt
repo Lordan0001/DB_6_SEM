@@ -1,0 +1,106 @@
+.open SixSemStore
+CREATE TABLE Products (
+    ID INTEGER PRIMARY KEY,
+    Name TEXT,
+    Price REAL
+);
+
+INSERT INTO Products (ID, Name, Price)
+VALUES (1, 'Product A', 10.99),
+       (2, 'Product B', 19.99);
+select * from Products;
+
+
+CREATE VIEW ExpensiveProducts AS
+SELECT *
+FROM Products
+WHERE Price > 15.00;
+
+
+CREATE VIEW ExpensiveProducts AS
+SELECT *
+FROM Products
+WHERE Price > 15.00;
+
+SELECT * FROM ExpensiveProducts;
+
+
+
+ALTER TABLE Products
+ADD LastModified DATETIME;
+
+-- Обновление значений столбца LastModified
+UPDATE Products
+SET LastModified = CURRENT_TIMESTAMP
+WHERE ID = 1;
+
+CREATE TRIGGER UpdateLastModified
+AFTER INSERT ON Products
+BEGIN
+    UPDATE Products SET LastModified = DATETIME('now') WHERE ID = new.ID;
+END;
+
+
+INSERT INTO Products (ID, Name, Price) VALUES (1, 'Product 1', 10.99);
+
+SELECT * FROM Products;
+
+
+
+-- Начало транзакции
+BEGIN TRANSACTION;
+
+
+-- Например, вставка данных
+INSERT INTO Products (ID, Name, Price)
+VALUES (8, 'Product C', 29.99);
+VALUES (9, 'Product C', 29.99);
+VALUES (1, 'Product C', 29.99);
+
+
+-- Подтверждение транзакции
+COMMIT;
+
+-- Проверка изменений
+SELECT * FROM Products;
+
+
+
+---транзакция 2 таблица внешние ключи и тд
+CREATE TABLE Orders (
+    ID INTEGER PRIMARY KEY,
+    CustomerID INTEGER,
+    OrderDate TEXT,
+    TotalAmount REAL,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(ID)
+);
+
+
+CREATE TABLE OrderItems (
+    ID INTEGER PRIMARY KEY,
+    OrderID INTEGER,
+    ProductID INTEGER,
+    Quantity INTEGER,
+    Price REAL,
+    FOREIGN KEY (OrderID) REFERENCES Orders(ID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ID)
+);
+
+PRAGMA foreign_keys = ON;
+
+-- Начало транзакции
+BEGIN TRANSACTION;
+
+-- Вставка записи с неверным OrderID
+INSERT INTO OrderItems (OrderID, ProductID, Quantity, Price)
+VALUES (100, 1, 2, 9.99);
+
+-- Подтверждение транзакции
+COMMIT;
+
+
+ select * from OrderItems; --пруф что ниче не вставилось
+
+
+
+

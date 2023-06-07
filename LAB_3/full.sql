@@ -8,47 +8,47 @@ RECONFIGURE;
 
 EXEC sp_configure 'clr strict security', 0;
 RECONFIGURE;
+
+ALTER AUTHORIZATION ON DATABASE::SixSemStore TO main; 
+GO
+ALTER DATABASE SixSemStore SET TRUSTWORTHY ON; 
+
 ---
 
 
 drop assembly Read_Assembly;
 drop procedure ReadProc;
-drop TYPE DirectoryPath;
 drop TYPE Adres;
 drop table test;
 
 create  assembly Read_Assembly from 'D:\University\Current\DataBase\All\LAB_3\bin\Debug\LAB_3.dll'
-	WITH PERMISSION_SET = SAFE;
+	WITH PERMISSION_SET = EXTERNAL_ACCESS;
 go
+
+create or alter procedure ReadProc @pathToFile nvarchar(256)
+as
+external name Read_Assembly.[LAB_3.DbTask].ReadFile;
+go
+
+exec ReadProc 'D:/b.txt'
 
 select  from sys.assemblies;
 
 --procedures
 
 
-CREATE TYPE DirectoryPath 
-EXTERNAL NAME Read_Assembly.[LAB_3.DirectoryPath];
-GO
-
 CREATE TYPE Adres 
-EXTERNAL NAME Read_Assembly.[LAB_3.ReplacePointsWithSpaces];
+EXTERNAL NAME Read_Assembly.[Route];
 GO
 
-drop procedure ReadProc;
-go
 
-create or alter procedure ReadProc
-as
-external name Read_Assembly.[LAB_3.DbTask].ReadFile;
-go
-
-exec ReadProc 
+drop table test;
 
 create table test(
 myType Adres )
 
 insert into test(myType)
-values('Baker.st.house.86');
+values('qwerty.st.house.16');
 
 select * from test;
 
